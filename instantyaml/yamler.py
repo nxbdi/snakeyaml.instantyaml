@@ -25,10 +25,10 @@ class ValidatePage(webapp.RequestHandler):
     try:
         document = yaml.load(content)
         result = yaml.dump(document, default_style='"', default_flow_style=False,
-        canonical=True, indent=4, width=80,
-        explicit_start=True, explicit_end=True)
+                           canonical=True, indent=4, width=80,
+                           explicit_start=True, explicit_end=True)
     except:
-        result = content
+        result = "The document is not valid YAML:\n%s" % content
     path = os.path.join(os.path.dirname(__file__), 'validate.html')
     template_values = {"validated": result}
     self.response.out.write(template.render(path, template_values))
