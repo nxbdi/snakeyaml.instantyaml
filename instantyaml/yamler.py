@@ -26,7 +26,8 @@ class ValidatePage(webapp.RequestHandler):
         document = yaml.load(content)
         result = yaml.dump(document, default_style='"', default_flow_style=False,
                            canonical=True, indent=4, width=80,
-                           explicit_start=True, explicit_end=True)
+                           explicit_start=True, explicit_end=True, version=(1, 1))
+        """ 1 < indent < 10, width > 20"""
     except:
         result = "The document is not valid YAML:\n%s" % content
     path = os.path.join(os.path.dirname(__file__), 'validate.html')
