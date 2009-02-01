@@ -1,5 +1,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+import os
+from google.appengine.ext.webapp import template
 
 """
 class Attempt(db.Model):
@@ -11,8 +13,9 @@ class Attempt(db.Model):
   
 class MainPage(webapp.RequestHandler):
   def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write('Hello, Yamler!')
+    path = os.path.join(os.path.dirname(__file__), 'welcome.html')
+    template_values = {}
+    self.response.out.write(template.render(path, template_values))
 
 application = webapp.WSGIApplication(
                                      [('/', MainPage)],
