@@ -1,16 +1,18 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
+"""
 class Attempt(db.Model):
   author = db.UserProperty()
   content = db.StringProperty(multiline=True)
   date = db.DateTimeProperty(auto_now_add=True)
   valid = db.BooleanProperty()
+"""
   
 class MainPage(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write('Hello, webapp World!')
+    self.response.out.write('Hello, Yamler!')
 
 application = webapp.WSGIApplication(
                                      [('/', MainPage)],
