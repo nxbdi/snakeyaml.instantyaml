@@ -6,11 +6,12 @@
 </head>
 <body>
 <h3>Welcome to InstantYAML!</h3>
+<div><a href="{{ logout_url }}">Logout</a></div>
 Enter a valid YAML document:
 <form action="/validate" method="post">
             <div><textarea name="content" rows="15" cols="60"></textarea></div>
-            <div><input type="submit" value="Show canonical YAML"> or 
-			<a href="{{ login_url }}">Login</a> to see more options</div>
+			<table>{{ form }}</table>
+            <div><input type="submit" value="Submit"></div>
 </form>
 </body>
 </html>
