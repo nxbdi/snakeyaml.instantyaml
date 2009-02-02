@@ -31,6 +31,7 @@ class FormatForm(forms.Form):
     show_version = forms.BooleanField(required=False)
     show_events = forms.BooleanField(required=False)
     show_tokens = forms.BooleanField(required=False)
+    show_node = forms.BooleanField(required=False)
                                      
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -54,6 +55,7 @@ class MainPage(webapp.RequestHandler):
         content = self.request.get('content')
         events = None
         tokens = None
+        node = None
         if user:
             path = os.path.join(os.path.dirname(__file__), 'featured.html')
             form = FormatForm(self.request.POST) # A form bound to the POST data
@@ -83,6 +85,7 @@ class MainPage(webapp.RequestHandler):
                     version = None
                 show_events = form.clean_data['show_events']
                 show_tokens = form.clean_data['show_tokens']
+                show_node = form.clean_data['show_node']
             else:
                 self.response.out.write("Error: form is invalid.")
                 return
@@ -98,7 +101,7 @@ class MainPage(webapp.RequestHandler):
             version=(1, 1)
             show_events = False
             show_tokens = False
-            
+            show_node = False
             
         try:
             document = yaml.load(content)
@@ -111,14 +114,15 @@ class MainPage(webapp.RequestHandler):
                 events = "\n".join(str(event) for event in yaml.parse(content))
             if show_tokens:
                 tokens = "\n".join(str(token) for token in yaml.scan(content))
+            if show_node:
+                node = str(yaml.compose(content))
+                splitted = node.split("),")
+                node = "),\n".join(splitted)
         except Exception, e:
             result = "The document is not valid YAML:\n%s\n%s" % (e, content)
-            
-            
-        
         
         if user:
-            template_values = {"form": form, "result": result, "content": content, "events": events,
+            template_values = {"form": form, "result": result, "content": content, "node": node, "events": events,
                                "tokens": tokens, "logout_url": users.create_logout_url(self.request.uri)}
         else:  
             template_values = {"result": result, "content": content, "login_url": users.create_login_url(self.request.uri)}
