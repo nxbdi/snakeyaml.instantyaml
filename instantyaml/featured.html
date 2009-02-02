@@ -8,10 +8,13 @@
 <h3>Welcome to InstantYAML!</h3>
 <div><a href="{{ logout_url }}">Logout</a></div>
 Enter a valid YAML document:
-<form action="/validate" method="post">
+<form action="" method="post">
             <div><textarea name="content" rows="15" cols="60"></textarea></div>
 			<table>{{ form }}</table>
             <div><input type="submit" value="Submit"></div>
 </form>
+{% if result %}Result:
+<pre>{{ result }}</pre>
+{% endif %}
 </body>
 </html>

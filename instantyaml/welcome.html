@@ -6,11 +6,16 @@
 </head>
 <body>
 <h3>Welcome to InstantYAML!</h3>
+<p>Test your document for <a href="http://pyyaml.org/wiki/PyYAML">PyYAML</a> (Python) or 
+<a href="http://trac-hg.assembla.com/snakeyaml">SnakeYAML</a> (Java)</p>
 Enter a valid YAML document:
-<form action="/validate" method="post">
-            <div><textarea name="content" rows="15" cols="60"></textarea></div>
+<form action="" method="post">
+            <div><textarea name="content" rows="15" cols="60">{{ content }}</textarea></div>
             <div><input type="submit" value="Show canonical YAML"> or 
 			<a href="{{ login_url }}">Login</a> to see more options</div>
 </form>
+{% if result %}<p>Result:</p>
+<pre>{{ result }}</pre>
+{% endif %}
 </body>
 </html>
