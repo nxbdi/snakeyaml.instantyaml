@@ -58,7 +58,7 @@ class MainPage(webapp.RequestHandler):
             form = FormatForm(self.request.POST) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 canonical = form.clean_data['canonical']
-                default_style = bool(form.clean_data['default_style'])
+                default_style = form.clean_data['default_style']
                 default_flow_style1 = bool(form.clean_data['default_flow_style'])
                 indent1 = int(form.clean_data['indent'])
                 width = int(form.clean_data['width'])
