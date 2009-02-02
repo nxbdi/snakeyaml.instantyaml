@@ -16,6 +16,7 @@ Enter a valid YAML document:{% block logout %}{% endblock %}
 </form>
 {% if result %}<p>Result:</p>
 <pre>{{ result }}</pre>
+{% if events %}<p>Events:</p><pre>{{ events }}</pre>{% endif %}
 {% endif %}
 </body>
 </html>

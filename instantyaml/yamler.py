@@ -29,8 +29,8 @@ class FormatForm(forms.Form):
     versions = [(0, '1.0'), (1, '1.1')]
     version = forms.ChoiceField(choices=versions, help_text="YAML version")
     show_version = forms.BooleanField(required=False)
-    events = forms.BooleanField(required=False)
-    tokens = forms.BooleanField(required=False)
+    show_events = forms.BooleanField(required=False)
+    show_tokens = forms.BooleanField(required=False)
                                      
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -52,7 +52,7 @@ class MainPage(webapp.RequestHandler):
         user = users.get_current_user()
 
         content = self.request.get('content')
-        
+        events = None
         if user:
             path = os.path.join(os.path.dirname(__file__), 'featured.html')
             form = FormatForm(self.request.POST) # A form bound to the POST data
@@ -80,6 +80,8 @@ class MainPage(webapp.RequestHandler):
                         version=(1, 1)
                 else:
                     version = None
+                show_events = form.clean_data['show_events']
+                
             else:
                 self.response.out.write("Error: form is invalid.")
                 return
@@ -93,6 +95,9 @@ class MainPage(webapp.RequestHandler):
             explicit_start = True
             explicit_end = True
             version=(1, 1)
+            show_events = False
+            show_tokens = False
+            
             
         try:
             document = yaml.load(content)
@@ -100,11 +105,18 @@ class MainPage(webapp.RequestHandler):
                                canonical=canonical, indent=indent, width=width,
                                explicit_start=explicit_start, explicit_end=explicit_end, version=version)
             """ 1 < indent < 10, width > 20"""
+            
+            if show_events:
+                events = "\n".join(str(event) for event in yaml.parse(content))
         except Exception, e:
             result = "The document is not valid YAML:\n%s\n%s" % (e, content)
+            
+            
+        
         
         if user:
-            template_values = {"form": form, "result": result, "content": content, "logout_url": users.create_logout_url(self.request.uri)}
+            template_values = {"form": form, "result": result, "content": content, "events": events,
+                               "logout_url": users.create_logout_url(self.request.uri)}
         else:  
             template_values = {"result": result, "content": content, "login_url": users.create_login_url(self.request.uri)}
         self.response.out.write(template.render(path, template_values))
