@@ -1,19 +1,19 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
+from google.appengine.ext import db
 from google.appengine.api import users
 import os
 import cgi
 import yaml
 from django import newforms as forms
 
-"""
 class Attempt(db.Model):
-  author = db.UserProperty()
+  author = db.UserProperty(required=False)
   content = db.StringProperty(multiline=True)
   date = db.DateTimeProperty(auto_now_add=True)
   valid = db.BooleanProperty()
-"""
+  
 class FormatForm(forms.Form):
     canonical = forms.BooleanField(required=False)
     explicit_start = forms.BooleanField(required=False)
@@ -118,12 +118,18 @@ class MainPage(webapp.RequestHandler):
                 node = str(yaml.compose(content))
                 splitted = node.split("),")
                 node = "),\n".join(splitted)
+            valid = True
         except Exception, e:
+            valid = False
             result = "The document is not valid YAML:\n%s\n%s" % (e, content)
-        
+        # save
+        attempt = Attempt(author=user, content=content, valid=valid)
+        attempt.put()
+        #
+        counter = Attempt.all().count()
         if user:
             template_values = {"form": form, "result": result, "content": content, "node": node, "events": events,
-                               "tokens": tokens, "logout_url": users.create_logout_url(self.request.uri)}
+                               "tokens": tokens, "counter": counter, "logout_url": users.create_logout_url(self.request.uri)}
         else:  
             template_values = {"result": result, "content": content, "login_url": users.create_login_url(self.request.uri)}
         self.response.out.write(template.render(path, template_values))
