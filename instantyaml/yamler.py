@@ -18,9 +18,9 @@ class FormatForm(forms.Form):
     canonical = forms.BooleanField(required=False)
     explicit_start = forms.BooleanField(required=False)
     explicit_end = forms.BooleanField(required=False)
-    styles = [(None, 'Default'), ('"', 'Double quote - "'), ("'", "Single quote - '")]
+    styles = [(0, 'Default'), ('"', 'Double quote - "'), ("'", "Single quote - '")]
     default_style = forms.ChoiceField(choices=styles)
-    flow_styles = [(None, 'Default (block style if has nested collections)'), (False, 'Block style'), (True, "Flow style")]
+    flow_styles = [(1, 'Default (block style if has nested collections)'), (2, 'Block style'), (3, "Flow style")]
     default_flow_style = forms.ChoiceField(choices=flow_styles)
     indents = [(1, '1'), (2, '2'), (4, '4'), (8, '8')]
     indent = forms.ChoiceField(choices=indents, initial='4')
@@ -59,8 +59,16 @@ class MainPage(webapp.RequestHandler):
             if form.is_valid(): # All validation rules pass
                 canonical = form.clean_data['canonical']
                 default_style = form.clean_data['default_style']
-                default_flow_style1 = bool(form.clean_data['default_flow_style'])
-                indent1 = int(form.clean_data['indent'])
+                if default_style == '0':
+                    default_style = None
+                default_flow_style = form.clean_data['default_flow_style']
+                if default_flow_style == '1':
+                    default_flow_style = None
+                elif default_flow_style == '2':
+                    default_flow_style = False
+                else:
+                    default_flow_style = True
+                indent = int(form.clean_data['indent'])
                 width = int(form.clean_data['width'])
                 explicit_start = form.clean_data['explicit_start']
                 explicit_end = form.clean_data['explicit_end']
@@ -73,13 +81,14 @@ class MainPage(webapp.RequestHandler):
                 else:
                     version = None
             else:
-                print form.errors
+                self.response.out.write("Error: form is invalid.")
+                return
         else:
             path = os.path.join(os.path.dirname(__file__), 'welcome.html')
             canonical = True
             default_style = '"'
-            default_flow_style1 = False
-            indent1 = 4
+            default_flow_style = False
+            indent = 4
             width = 80
             explicit_start = True
             explicit_end = True
@@ -87,8 +96,8 @@ class MainPage(webapp.RequestHandler):
             
         try:
             document = yaml.load(content)
-            result = yaml.dump(document, default_style=default_style, default_flow_style=default_flow_style1,
-                               canonical=canonical, indent=indent1, width=width,
+            result = yaml.dump(document, default_style=default_style, default_flow_style=default_flow_style,
+                               canonical=canonical, indent=indent, width=width,
                                explicit_start=explicit_start, explicit_end=explicit_end, version=version)
             """ 1 < indent < 10, width > 20"""
         except Exception, e:
