@@ -6,8 +6,9 @@
 </head>
 <body>
 <h3>Welcome to InstantYAML!</h3>
-{% for attempt in attempts %}
-<p>{{ attempt.author }} | {{ attempt.content }} | {{ attempt.date }}| {{ attempt.valid }}</p>
+<h2><a<a href="/">Home</a></h2>
+{% for attempt in statistics %}
+<p>{{ attempt.user }} | {{ attempt.counter }} | {{ attempt.date }}</p>
 {% endfor %}
 
 </body>
