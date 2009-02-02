@@ -27,7 +27,7 @@ class FormatForm(forms.Form):
     widths = [(20, '20'), (40, '40'), (60, '60'), (80, '80'), (100, '100'), (120, '120')]
     width = forms.ChoiceField(choices=widths)
     versions = [(0, '1.0'), (1, '1.1')]
-    version = forms.ChoiceField(choices=versions, help_text="YAML version")
+    yaml_version = forms.ChoiceField(choices=versions)
     show_version = forms.BooleanField(required=False)
     show_events = forms.BooleanField(required=False)
     show_tokens = forms.BooleanField(required=False)
@@ -41,7 +41,7 @@ class MainPage(webapp.RequestHandler):
             path = os.path.join(os.path.dirname(__file__), 'featured.html')
             form = FormatForm({'canonical': True, 'explicit_start': True, 'explicit_end': True,
                                'default_style': 0, 'default_flow_style': 1, 'indent': 4, 
-                               'width': 80, 'version': 1, 'show_version': True, 'events': False, 'tokens': False})
+                               'width': 80, 'yaml_version': 1, 'show_version': True, 'events': False, 'tokens': False})
             template_values = {"form": form, "logout_url": users.create_logout_url(self.request.uri)}
         else:
             path = os.path.join(os.path.dirname(__file__), 'welcome.html')
@@ -77,12 +77,12 @@ class MainPage(webapp.RequestHandler):
                 explicit_end = form.clean_data['explicit_end']
                 show_version = form.clean_data['show_version']
                 if show_version:
-                    if form.clean_data['version'] == '0':
-                        version=(1, 0)
+                    if form.clean_data['yaml_version'] == '0':
+                        yaml_version=(1, 0)
                     else:
-                        version=(1, 1)
+                        yaml_version=(1, 1)
                 else:
-                    version = None
+                    yaml_version = None
                 show_events = form.clean_data['show_events']
                 show_tokens = form.clean_data['show_tokens']
                 show_node = form.clean_data['show_node']
@@ -98,7 +98,7 @@ class MainPage(webapp.RequestHandler):
             width = 80
             explicit_start = True
             explicit_end = True
-            version=(1, 1)
+            yaml_version=(1, 1)
             show_events = False
             show_tokens = False
             show_node = False
@@ -107,7 +107,7 @@ class MainPage(webapp.RequestHandler):
             document = yaml.load(content)
             result = yaml.dump(document, default_style=default_style, default_flow_style=default_flow_style,
                                canonical=canonical, indent=indent, width=width,
-                               explicit_start=explicit_start, explicit_end=explicit_end, version=version)
+                               explicit_start=explicit_start, explicit_end=explicit_end, version=yaml_version)
             """ 1 < indent < 10, width > 20"""
             
             if show_events:
