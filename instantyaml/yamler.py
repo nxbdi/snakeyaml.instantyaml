@@ -39,7 +39,7 @@ class MainPage(webapp.RequestHandler):
         if user:
             path = os.path.join(os.path.dirname(__file__), 'featured.html')
             form = FormatForm({'canonical': True, 'explicit_start': True, 'explicit_end': True,
-                               'default_style': None, 'default_flow_style': None, 'indent': 4, 
+                               'default_style': 0, 'default_flow_style': 1, 'indent': 4, 
                                'width': 80, 'version': 1, 'show_version': True, 'events': False, 'tokens': False})
             template_values = {"form": form, "logout_url": users.create_logout_url(self.request.uri)}
         else:
