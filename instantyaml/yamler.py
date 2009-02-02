@@ -134,12 +134,8 @@ class MainPage(webapp.RequestHandler):
             template_values = {"result": result, "content": content, "login_url": users.create_login_url(self.request.uri)}
         self.response.out.write(template.render(path, template_values))
 
-class AdminPage(webapp.RequestHandler):
-    def get(self):
-        self.response.out.write("I am Admin")
-        
 application = webapp.WSGIApplication(
-                                      [('/', MainPage), ('/admin/', AdminPage)],
+                                      [('/', MainPage)],
                                      debug=True)
 
 def main():
