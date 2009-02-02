@@ -53,6 +53,7 @@ class MainPage(webapp.RequestHandler):
 
         content = self.request.get('content')
         events = None
+        tokens = None
         if user:
             path = os.path.join(os.path.dirname(__file__), 'featured.html')
             form = FormatForm(self.request.POST) # A form bound to the POST data
@@ -81,7 +82,7 @@ class MainPage(webapp.RequestHandler):
                 else:
                     version = None
                 show_events = form.clean_data['show_events']
-                
+                show_tokens = form.clean_data['show_tokens']
             else:
                 self.response.out.write("Error: form is invalid.")
                 return
@@ -108,6 +109,8 @@ class MainPage(webapp.RequestHandler):
             
             if show_events:
                 events = "\n".join(str(event) for event in yaml.parse(content))
+            if show_tokens:
+                tokens = "\n".join(str(token) for token in yaml.scan(content))
         except Exception, e:
             result = "The document is not valid YAML:\n%s\n%s" % (e, content)
             
@@ -116,7 +119,7 @@ class MainPage(webapp.RequestHandler):
         
         if user:
             template_values = {"form": form, "result": result, "content": content, "events": events,
-                               "logout_url": users.create_logout_url(self.request.uri)}
+                               "tokens": tokens, "logout_url": users.create_logout_url(self.request.uri)}
         else:  
             template_values = {"result": result, "content": content, "login_url": users.create_login_url(self.request.uri)}
         self.response.out.write(template.render(path, template_values))
