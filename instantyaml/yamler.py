@@ -5,7 +5,7 @@ from google.appengine.ext import db
 from google.appengine.api import users
 import os
 import cgi
-import yaml
+import latestyaml as yaml
 from django import newforms as forms
 
 class Attempt(db.Model):
@@ -46,7 +46,7 @@ class MainPage(webapp.RequestHandler):
         else:
             path = os.path.join(os.path.dirname(__file__), 'welcome.html')
             template_values = {"login_url": users.create_login_url(self.request.uri)}
-            
+        template_values["yaml_version"] = yaml.__version__    
         self.response.out.write(template.render(path, template_values))
     
     def post(self):
@@ -128,10 +128,13 @@ class MainPage(webapp.RequestHandler):
         #
         counter = Attempt.all().count()
         if user:
-            template_values = {"form": form, "result": result, "content": content, "node": node, "events": events,
+            template_values = {"form": form, "node": node, "events": events,
                                "tokens": tokens, "counter": counter, "logout_url": users.create_logout_url(self.request.uri)}
         else:  
-            template_values = {"result": result, "content": content, "login_url": users.create_login_url(self.request.uri)}
+            template_values = {"login_url": users.create_login_url(self.request.uri)}
+        template_values["result"] = result
+        template_values["content"] = content
+        template_values["yaml_version"] = yaml.__version__
         self.response.out.write(template.render(path, template_values))
 
 application = webapp.WSGIApplication(
