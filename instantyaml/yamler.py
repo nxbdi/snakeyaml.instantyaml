@@ -10,9 +10,9 @@ from django import newforms as forms
 
 class Attempt(db.Model):
   author = db.UserProperty(required=False)
-  content = db.StringProperty(multiline=True)
   date = db.DateTimeProperty(auto_now_add=True)
   valid = db.BooleanProperty()
+  content = db.StringProperty(multiline=True)
   
 class FormatForm(forms.Form):
     canonical = forms.BooleanField(required=False)
