@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% block logout %}<div><a href="{{ logout_url }}">Logout</a></div>{% endblock %}
 {% block submit %}<table>{{ form }}</table>
-<div><input type="submit" value="Submit"></div>
+<div><input type="submit" value="Submit"> or <a href="{{ logout_url }}">Logout</a></div>
 {% endblock %}
 
