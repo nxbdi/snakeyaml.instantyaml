@@ -7,9 +7,25 @@
 <body>
 <h3>Welcome to InstantYAML!</h3>
 <h2><a<a href="/">Home</a></h2>
-{% for attempt in statistics %}
-<p>{{ attempt.user }} | {{ attempt.counter }} | {{ attempt.date }}</p>
-{% endfor %}
-
+<table>
+	<thead>
+		<tr>
+			<th>No.</th>
+			<th>E-Mail</th>
+			<th>Counter</th>
+			<th>Last attempt</th>
+		</tr>
+	</thead>
+    <tbody>
+	{% for attempt in statistics %}
+		<tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ attempt.user }}</td>
+                <td>{{ attempt.counter }}</td>
+                <td>{{ attempt.date }}</td>
+    	</tr>
+	{% endfor %}
+	<tbody>
+</table>
 </body>
 </html>
