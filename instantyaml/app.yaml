@@ -8,6 +8,10 @@ handlers:
   static_files: media/images/favicon.ico
   upload: media/images/favicon.ico
 
+- url: /robots.txt
+  static_files: media/images/robots.txt
+  upload: media/images/robots.txt
+  
 - url: /admin/
   script: admin.py
   login: admin
