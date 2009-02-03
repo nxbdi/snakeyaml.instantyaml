@@ -25,9 +25,10 @@ class AdminPage(webapp.RequestHandler):
         attempts = {}
         counter = Attempt.all().count()
         for attempt in Attempt.all():
-            author = attempt.author.email()
-            if not author:
-                author = "Anonymous@nowhere.com"
+            if not attempt.author:
+                author = "anonymous@nowhere.com"
+            else:
+                author = attempt.author.email()
             if author not in attempts:
                 stat = Stat(author, attempt.date)
                 attempts[author] = stat
