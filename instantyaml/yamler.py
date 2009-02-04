@@ -20,7 +20,7 @@ class FormatForm(forms.Form):
     explicit_end = forms.BooleanField(required=False)
     styles = [(0, 'Default'), ('"', 'Double quote - "'), ("'", "Single quote - '")]
     default_style = forms.ChoiceField(choices=styles)
-    flow_styles = [(1, 'Default)'), (2, 'Block style'), (3, "Flow style")]
+    flow_styles = [(1, 'Default'), (2, 'Block style'), (3, "Flow style")]
     default_flow_style = forms.ChoiceField(choices=flow_styles)
     indents = [(1, '1'), (2, '2'), (4, '4'), (8, '8')]
     indent = forms.ChoiceField(choices=indents, initial='4')
