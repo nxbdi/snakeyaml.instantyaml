@@ -12,31 +12,22 @@ p {
     margin: 0 10px 10px
 }
 
-/*
-a {
-    display: block;
-    color: #006;
-    padding: 10px
-}
-*/
-
 div#header {
     position: relative
 }
 
 div#header h1 {
-    height: 80px;
-    line-height: 80px;
+    height: 50px;
+    line-height: 50px;
     margin: 0;
     padding-left: 10px;
-    background: #EEE;
-    color: #79B30B
+    color: #79B35B
 }
 
 #appengine {
     position: absolute;
     right: 0;
-    top: 20px
+    top: 10px
 }
 
 div#container {

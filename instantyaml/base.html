@@ -19,6 +19,7 @@
             <form action="" method="post">
                 <div id="wrapper">
                     <div id="content">
+                        {% block options %}
                         <p>
                             <strong>Example:</strong>
                             <pre>a: b
@@ -28,13 +29,14 @@ e:
  - 2</pre>
                             <a href="http://yaml.org/spec/1.1/#id857168">More examples.</a>
                         </p>
+                        {% endblock %}
                     </div>
                 </div>
                 <div id="navigation">
                     <p>
                         <strong>Enter a valid <a href="http://www.yaml.org/">YAML</a> document:</strong>
                         <div>
-                            <textarea name="content" rows="15" cols="50">
+                            <textarea name="content" rows="18" cols="50">
                                 {{ content }}
                             </textarea>
                         </div>
@@ -50,14 +52,14 @@ e:
                 {% if result %}
                 <div id="result">
                     <p>
-                        Result:
+                        <strong>Result:</strong>
                     </p>
                     <pre>{{ result }}</pre>
                 </div>
                 {% if events %}
                 <div id="events">
                     <p>
-                        Events:
+                        <strong>Events:</strong>
                     </p>
                     <pre>{{ events }}</pre>
                 </div>
@@ -65,7 +67,7 @@ e:
                 {% if tokens %}
                 <div id="tokens">
                     <p>
-                        Tokens:
+                        <strong>Tokens:</strong>
                     </p>
                     <pre>{{ tokens }}</pre>
                 </div>
@@ -73,7 +75,7 @@ e:
                 {% if node %}
                 <div id="node">
                     <p>
-                        Node:
+                        <strong>Node:</strong>
                     </p>
                     <pre>{{ node }}</pre>
                 </div>
