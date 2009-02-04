@@ -1,0 +1,92 @@
+html, body {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    font: 76% arial, sans-serif;
+    text-align: center
+}
+
+p {
+    margin: 0 10px 10px
+}
+
+/*
+a {
+    display: block;
+    color: #006;
+    padding: 10px
+}
+*/
+
+div#header {
+    position: relative
+}
+
+div#header h1 {
+    height: 80px;
+    line-height: 80px;
+    margin: 0;
+    padding-left: 10px;
+    background: #EEE;
+    color: #79B30B
+}
+
+#appengine {
+    position: absolute;
+    right: 0;
+    top: 20px
+}
+
+div#container {
+    text-align: left
+}
+
+div#content p {
+    line-height: 1.4
+}
+
+/*
+div#navigation {
+    background: #B9CAFF
+}
+*/
+
+/*
+div#footer {
+    background: #FFFFFF;
+    color: #FFF
+}
+*/
+
+div#footer p {
+    margin: 0;
+    padding: 5px 10px
+}
+
+div#footer a {
+    display: inline;
+    padding: 0;
+}
+
+div#container {
+    width: 800px;
+    margin: 0 auto
+}
+
+div#content {
+    float: right;
+    width: 250px
+}
+
+div#navigation {
+    float: left;
+    width: 550px
+}
+
+div#footer {
+    clear: both;
+    width: 100%;
+    padding: 5px 10px;
+}

@@ -12,6 +12,9 @@ handlers:
   static_files: media/images/robots.txt
   upload: media/images/robots.txt
   
+- url: /media/css
+  static_dir: media/css
+  
 - url: /admin/
   script: admin.py
   login: admin
