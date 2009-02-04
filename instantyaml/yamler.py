@@ -12,7 +12,7 @@ class Attempt(db.Model):
   author = db.UserProperty(required=False)
   date = db.DateTimeProperty(auto_now_add=True)
   valid = db.BooleanProperty()
-  content = db.StringProperty(multiline=True)
+  content = db.TextProperty()
   
 class FormatForm(forms.Form):
     canonical = forms.BooleanField(required=False)
