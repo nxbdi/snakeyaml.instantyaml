@@ -71,7 +71,6 @@ div#button {
 div#result {
     clear: both;
     width: 100%;
-    padding: 1px 1px;
     background: #EFF5EF;
 }
 div#events {
@@ -83,3 +82,15 @@ div#tokens {
 div#node {
     background: #ffffe0;
 }
+
+/* Fonts *******************/
+
+body {
+  font: 8pt Tahoma, Sans-Serif;
+}
+
+h1 {
+  font-size:180%;
+  letter-spacing:3px;
+}
+
