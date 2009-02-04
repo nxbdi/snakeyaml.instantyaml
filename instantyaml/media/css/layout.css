@@ -82,6 +82,9 @@ div#tokens {
 div#node {
     background: #ffffe0;
 }
+#quote {
+  margin-left: 30px;
+}
 
 /* Fonts *******************/
 
@@ -93,4 +96,9 @@ h1 {
   font-size:180%;
   letter-spacing:3px;
 }
+
+#quote {
+  font-size:110%;
+}
+
 
