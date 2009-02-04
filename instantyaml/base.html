@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Instant YAML{% if counter %} ({{ counter }}){% endif %}</title>
+        <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+        <link rel="stylesheet" href="media/css/layout.css" type="text/css" media="screen, print" />
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <h1>Welcome to InstantYAML</h1>
+                <a id="appengine" href="http://code.google.com/intl/fr/appengine/"><img src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif" alt="Powered by Google App Engine"/></a>
+                <p>
+                    Test your document for <a href="http://pyyaml.org/wiki/PyYAML">PyYAML</a>
+                    {{ yaml_version }} (Python) or <a href="http://trac-hg.assembla.com/snakeyaml">SnakeYAML</a>
+                    1.0 (Java)
+                </p>
+            </div>
+            <form action="" method="post">
+                <div id="wrapper">
+                    <div id="content">
+                        <p>
+                            <strong>Example:</strong>
+                            <pre>a: b
+c: d
+e:
+ - 1
+ - 2</pre>
+                            <a href="http://yaml.org/spec/1.1/#id857168">More examples.</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="navigation">
+                    <p>
+                        <strong>Enter a valid <a href="http://www.yaml.org/">YAML</a> document:</strong>
+                        <div>
+                            <textarea name="content" rows="15" cols="50">{{ content }}</textarea>
+                        </div>
+                    </p>
+                </div>
+                <div id="footer">
+                    {% block submit %}
+                    <div>
+                        <input type="submit" value="Show canonical YAML"> or <a href="{{ login_url }}">Login</a>
+                        to see more options
+                    </div>{% endblock %}
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
