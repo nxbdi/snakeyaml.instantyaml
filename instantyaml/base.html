@@ -34,17 +34,51 @@ e:
                     <p>
                         <strong>Enter a valid <a href="http://www.yaml.org/">YAML</a> document:</strong>
                         <div>
-                            <textarea name="content" rows="15" cols="50">{{ content }}</textarea>
+                            <textarea name="content" rows="15" cols="50">
+                                {{ content }}
+                            </textarea>
                         </div>
                     </p>
                 </div>
-                <div id="footer">
+                <div id="button">
                     {% block submit %}
                     <div>
-                        <input type="submit" value="Show canonical YAML"> or <a href="{{ login_url }}">Login</a>
+                        <input type="submit" value="Show canonical YAML">or <a href="{{ login_url }}">Login</a>
                         to see more options
                     </div>{% endblock %}
                 </div>
+                {% if result %}
+                <div id="result">
+                    <p>
+                        Result:
+                    </p>
+                    <pre>{{ result }}</pre>
+                </div>
+                {% if events %}
+                <div id="events">
+                    <p>
+                        Events:
+                    </p>
+                    <pre>{{ events }}</pre>
+                </div>
+                {% endif %}
+                {% if tokens %}
+                <div id="tokens">
+                    <p>
+                        Tokens:
+                    </p>
+                    <pre>{{ tokens }}</pre>
+                </div>
+                {% endif %}
+                {% if node %}
+                <div id="node">
+                    <p>
+                        Node:
+                    </p>
+                    <pre>{{ node }}</pre>
+                </div>
+                {% endif %}
+                {% endif %}
             </form>
         </div>
     </body>

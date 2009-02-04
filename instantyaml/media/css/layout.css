@@ -47,25 +47,12 @@ div#content p {
     line-height: 1.4
 }
 
-/*
-div#navigation {
-    background: #B9CAFF
-}
-*/
-
-/*
-div#footer {
-    background: #FFFFFF;
-    color: #FFF
-}
-*/
-
-div#footer p {
+div#button p {
     margin: 0;
     padding: 5px 10px
 }
 
-div#footer a {
+div#button a {
     display: inline;
     padding: 0;
 }
@@ -85,8 +72,23 @@ div#navigation {
     width: 550px
 }
 
-div#footer {
+div#button {
     clear: both;
     width: 100%;
     padding: 5px 10px;
+}
+div#result {
+    clear: both;
+    width: 100%;
+    padding: 1px 1px;
+    background: #EFF5EF;
+}
+div#events {
+    background: #EFEFFF;
+}
+div#tokens {
+    background: #FFEFEF;
+}
+div#node {
+    background: #ffffe0;
 }
