@@ -18,6 +18,7 @@ class FormatForm(forms.Form):
     canonical = forms.BooleanField(required=False)
     explicit_start = forms.BooleanField(required=False)
     explicit_end = forms.BooleanField(required=False)
+    allow_unicode = forms.BooleanField(required=False)
     styles = [(0, 'Default'), ('"', 'Double quote - "'), ("'", "Single quote - '")]
     default_style = forms.ChoiceField(choices=styles)
     flow_styles = [(1, 'Default'), (2, 'Block style'), (3, "Flow style")]
@@ -40,7 +41,7 @@ class MainPage(webapp.RequestHandler):
         if user:
             path = os.path.join(os.path.dirname(__file__), 'featured.html')
             form = FormatForm({'canonical': True, 'explicit_start': True, 'explicit_end': True,
-                               'default_style': 0, 'default_flow_style': 1, 'indent': 4, 
+                               'default_style': 0, 'default_flow_style': 1, 'indent': 4, 'allow_unicode': True,
                                'width': 80, 'yaml_version': 1, 'show_version': True, 'events': False, 'tokens': False})
             template_values = {"form": form, "logout_url": users.create_logout_url(self.request.uri)}
         else:
@@ -75,6 +76,7 @@ class MainPage(webapp.RequestHandler):
                 width = int(form.clean_data['width'])
                 explicit_start = form.clean_data['explicit_start']
                 explicit_end = form.clean_data['explicit_end']
+                allow_unicode = form.clean_data['allow_unicode']
                 show_version = form.clean_data['show_version']
                 if show_version:
                     if form.clean_data['yaml_version'] == '0':
@@ -94,6 +96,7 @@ class MainPage(webapp.RequestHandler):
             canonical = True
             default_style = '"'
             default_flow_style = False
+            allow_unicode = True
             indent = 4
             width = 80
             explicit_start = True
@@ -106,7 +109,7 @@ class MainPage(webapp.RequestHandler):
         try:
             document = yaml.load(content)
             result = yaml.dump(document, default_style=default_style, default_flow_style=default_flow_style,
-                               canonical=canonical, indent=indent, width=width,
+                               canonical=canonical, indent=indent, width=width, allow_unicode=allow_unicode,
                                explicit_start=explicit_start, explicit_end=explicit_end, version=yaml_version)
             """ 1 < indent < 10, width > 20"""
             
